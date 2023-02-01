@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useState } from "react"
-import axios from 'axios';
+import axios from '../api/api'
 
 const college = [
     {
@@ -144,6 +144,8 @@ const Container = styled.div`
             color: ${props => props.theme.themeColor};
             margin: 0;
             margin-bottom: 50px;
+            font-size: 35px;
+            font-weight: bold;
         }
         label {
             text-align: left;
@@ -250,18 +252,15 @@ export default function SignUp(){
     const onSubmit = async (data: IFormInput) => {
         alert(JSON.stringify(data));
         const { email, name, password, studentId, studentMajor } = data;
-        try {
-            const response = await axios.post("/user/", {
-                email,
-                password,
-                name,
-                studentMajor,
-                studentId,
-            })   
-            console.log(response);
-          } catch (error) {
-            
-          }
+        axios.post('/user/create', {
+            email, name, password, studentId, studentMajor
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log(response)
+                }
+            })
+            .catch((error) => console.log(error.response));
     };
     const [majorList,setMajorList] = useState<string[]>();
 

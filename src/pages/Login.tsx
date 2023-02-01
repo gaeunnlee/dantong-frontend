@@ -24,6 +24,8 @@ const Container = styled.div`
             color: ${props => props.theme.themeColor};
             margin: 0;
             margin-bottom: 30px;
+            font-size: 35px;
+            font-weight: bold;
         }
         input {
             display: block;
